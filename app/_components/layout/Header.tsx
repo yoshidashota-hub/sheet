@@ -15,21 +15,13 @@ import {
   SheetClose,
 } from "@/components/ui/sheet";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Sidebar } from "./Sidebar";
+import { Sidebar } from "./sidebar/Sidebar";
+import { useSidebar } from "@/app/feature/context/SidebarContext";
 
-interface HeaderProps {
-  setSidebarOpen: (value: boolean) => void;
-  sidebarOpen: boolean;
-  setMobileMenuOpen: (value: boolean) => void;
-  mobileMenuOpen: boolean;
-}
+export function Header() {
+  const { sidebarOpen, setSidebarOpen, mobileMenuOpen, setMobileMenuOpen } =
+    useSidebar();
 
-export function Header({
-  setSidebarOpen,
-  sidebarOpen,
-  setMobileMenuOpen,
-  mobileMenuOpen,
-}: HeaderProps) {
   return (
     <>
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -115,6 +107,11 @@ export function Header({
               <SheetClose className="h-8 w-8 flex items-center justify-center focus:outline-none"></SheetClose>
             </div>
           </div>
+          <ScrollArea className="h-[calc(100vh-65px)]">
+            <div className="p-4">
+              <Sidebar />
+            </div>
+          </ScrollArea>
         </SheetContent>
       </Sheet>
     </>
